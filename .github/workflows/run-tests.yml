@@ -16,10 +16,10 @@ jobs:
         php: [8.2, 8.1]
         laravel: [9.*]
         stability: [prefer-lowest, prefer-stable]
-        carbon: "^2.63"
         include:
           - laravel: 9.*
             testbench: 7.*
+            carbon: ^2.63
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
