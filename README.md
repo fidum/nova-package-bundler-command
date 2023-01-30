@@ -1,4 +1,4 @@
-# Improves Nova initial load speeds by combining all third party package assets into a single file.
+# Improves Laravel Nova initial load speeds by combining all third party package assets into a single file.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/fidum/nova-package-bundler-command.svg?style=for-the-badge)](https://packagist.org/packages/fidum/nova-package-bundler-command)
 [![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/fidum/nova-package-bundler-command/run-tests.yml?branch=main&style=for-the-badge)](https://github.com/fidum/nova-package-bundler-command/actions?query=workflow%3Arun-tests+branch%3Amaster)

@@ -1,6 +1,6 @@
 {
     "name": "fidum/nova-package-bundler-command",
-    "description": "Improves Nova initial load speeds by combining all third party package assets into a single file.",
+    "description": "Improves Laravel Nova initial load speeds by combining all third party package assets into a single file.",
     "keywords": [
         "fidum",
         "laravel",
