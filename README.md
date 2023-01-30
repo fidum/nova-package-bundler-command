@@ -4,8 +4,6 @@
 [![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/fidum/nova-package-bundler-command/run-tests.yml?branch=main&style=for-the-badge)](https://github.com/fidum/nova-package-bundler-command/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![Twitter Follow](https://img.shields.io/twitter/follow/danmasonmp?label=Follow&logo=twitter&style=for-the-badge)](https://twitter.com/danmasonmp)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
 ## Installation
 
 You can install the package via composer:
