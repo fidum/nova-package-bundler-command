@@ -1,5 +1,6 @@
 <?php
 
+use Fidum\NovaPackageBundler\Tests\Support\TestTool;
 use Laravel\Nova\Nova;
 use function Pest\Laravel\artisan;
 use function Pest\testDirectory;
@@ -7,6 +8,7 @@ use function Spatie\Snapshots\assertMatchesFileSnapshot;
 
 it('finds and bundles registered scripts and styles', function () {
     $this->app->instance('path.public', testDirectory('fixtures/public'));
+    Nova::$tools = [TestTool::make()];
 
     Nova::serving(function () {
         Nova::script('test-package', testDirectory('fixtures/input/test.js'));

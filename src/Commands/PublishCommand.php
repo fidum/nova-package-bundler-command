@@ -18,6 +18,7 @@ class PublishCommand extends Command
     public function handle(Filesystem $files): int
     {
         ServingNova::dispatch(new Request());
+        $this->bootTools();
 
         foreach ($this->methods() as $method => [$type, $outputPath]) {
             $content = '';
@@ -55,5 +56,23 @@ class PublishCommand extends Command
             'allScripts' => ['js', public_path(config('nova-package-bundler-command.paths.script'))],
             'allStyles' => ['css', public_path(config('nova-package-bundler-command.paths.style'))],
         ];
+    }
+
+    private function bootTools(): void
+    {
+        if (Nova::$tools) {
+            foreach (Nova::$tools as $tool) {
+                $name = $tool::class;
+                $this->components->task("Booting tool [$name]", function () use ($tool) {
+                    try {
+                        $tool->boot();
+                    } catch (\Throwable $e) {
+                        // Do nothing
+                    }
+                });
+            }
+
+            $this->line('');
+        }
     }
 }
