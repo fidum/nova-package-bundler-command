@@ -1,7 +1,7 @@
-# :package_description
+# Improves Nova initial load speeds by combining all third party package assets into a single file.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/fidum/:package_slug.svg?style=for-the-badge)](https://packagist.org/packages/fidum/:package_slug)
-[![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/fidum/:package_slug/run-tests.yml?branch=main&style=for-the-badge)](https://github.com/fidum/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/fidum/nova-package-bundler-command.svg?style=for-the-badge)](https://packagist.org/packages/fidum/nova-package-bundler-command)
+[![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/fidum/nova-package-bundler-command/run-tests.yml?branch=main&style=for-the-badge)](https://github.com/fidum/nova-package-bundler-command/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![Twitter Follow](https://img.shields.io/twitter/follow/danmasonmp?label=Follow&logo=twitter&style=for-the-badge)](https://twitter.com/danmasonmp)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
@@ -11,40 +11,83 @@ This is where your description should go. Limit it to a paragraph or two. Consid
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
-php artisan migrate
+composer require fidum/nova-package-bundler-command
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag="nova-package-bundler-command-config"
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Output paths
+    |--------------------------------------------------------------------------
+    |
+    | Define the output paths where the command will save the contents of the
+    | bundled packages. These paths will be wrapped with `public_path` as
+    | the output needs to always end up in the public directory so that
+    | we can tell Nova to load it via the ASSET_URL.
+    |
+    */
+    'paths' => [
+        'script' => '/vendor/nova-tools/app.js',
+        'style' => '/vendor/nova-tools/app.css',
+    ],
 ];
 ```
 
-Optionally, you can publish the views using
+Update Nova configuration file in `config/nova.php`. Add the `OverrideNovaPackagesMiddleware` to the `middleware` option after `BootTools`:
 
-```bash
-php artisan vendor:publish --tag=":package_slug-views"
+```php
+use Fidum\NovaPackageBundler\Http\Middleware\OverrideNovaPackagesMiddleware;
+use Laravel\Nova\Http\Middleware\Authenticate;
+use Laravel\Nova\Http\Middleware\Authorize;
+use Laravel\Nova\Http\Middleware\BootTools;
+use Laravel\Nova\Http\Middleware\DispatchServingNovaEvent;
+use Laravel\Nova\Http\Middleware\HandleInertiaRequests;
+
+return [
+
+    // ...
+
+    'middleware' => [
+        'web',
+        HandleInertiaRequests::class,
+        DispatchServingNovaEvent::class,
+        BootTools::class,
+        OverrideNovaPackagesMiddleware::class
+    ],
+
+    // ...
+];
 ```
 
 ## Usage
 
-```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
+Run the below command whenever you upgrade your third party nova packages. This should output the files configured above, you should commit the files to your repo. 
+
+```bash
+$ php artisan nova:tools:publish 
+
+Reading asset [1feb8c78f6bd6ba8a6a29cab353ebd8d] from [public/vendor/nova-kit/nova-packages-tool/tool.js] ............................... 1ms DONE
+Reading asset [nova-apex-chart] from [vendor/coroowicaksono/chart-js-integration/src/../dist/js/chart-js-integration.js] ................ 2ms DONE
+Reading asset [multiselect-field] from [vendor/outl1ne/nova-multiselect-field/src/../dist/js/entry.js] .................................. 1ms DONE
+Reading asset [nova-multiselect-filter] from [vendor/outl1ne/nova-multiselect-filter/src/../dist/js/entry.js] ........................... 1ms DONE
+Reading asset [nova-opening-hours-field] from [vendor/sadekd/nova-opening-hours-field/src/../dist/js/field.js] .......................... 1ms DONE
+Reading asset [nova-tag-input] from [vendor/superlatif/nova-tag-input/src/../dist/js/field.js] .......................................... 2ms DONE
+Writing file [public/vendor/nova-tools/app.js] .......................................................................................... 1ms DONE
+
+Reading asset [multiselect-field] from [vendor/outl1ne/nova-multiselect-field/src/../dist/css/entry.css] ................................ 0ms DONE
+Reading asset [nova-multiselect-filter] from [vendor/outl1ne/nova-multiselect-filter/src/../dist/css/entry.css] ......................... 0ms DONE
+Reading asset [nova-opening-hours-field] from [vendor/sadekd/nova-opening-hours-field/src/../dist/css/field.css] ........................ 0ms DONE
+Reading asset [nova-tag-input] from [vendor/superlatif/nova-tag-input/src/../dist/css/field.css] ........................................ 0ms DONE
+Writing file [public/vendor/nova-tools/app.css] ......................................................................................... 0ms DONE
 ```
 
 ## Testing
@@ -59,11 +102,11 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/:author_username/.github/blob/main/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/dmason30/.github/blob/main/CONTRIBUTING.md) for details.
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Dan Mason](https://github.com/dmason30)
 - [All Contributors](../../contributors)
 
 ## License
