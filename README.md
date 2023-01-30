@@ -44,8 +44,6 @@ Update Nova configuration file in `config/nova.php`. Add the `OverrideNovaPackag
 
 ```php
 use Fidum\NovaPackageBundler\Http\Middleware\OverrideNovaPackagesMiddleware;
-use Laravel\Nova\Http\Middleware\Authenticate;
-use Laravel\Nova\Http\Middleware\Authorize;
 use Laravel\Nova\Http\Middleware\BootTools;
 use Laravel\Nova\Http\Middleware\DispatchServingNovaEvent;
 use Laravel\Nova\Http\Middleware\HandleInertiaRequests;
