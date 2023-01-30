@@ -72,13 +72,16 @@ return [
 
 Run the below command whenever you upgrade your third party nova packages. This should output the files configured above, you should commit the files to your repo. 
 
-```bash
+```console
 $ php artisan nova:tools:publish 
 
-Reading asset [1feb8c78f6bd6ba8a6a29cab353ebd8d] from [public/vendor/nova-kit/nova-packages-tool/tool.js] ............................... 1ms DONE
-Reading asset [nova-apex-chart] from [vendor/coroowicaksono/chart-js-integration/src/../dist/js/chart-js-integration.js] ................ 2ms DONE
-Reading asset [multiselect-field] from [vendor/outl1ne/nova-multiselect-field/src/../dist/js/entry.js] .................................. 1ms DONE
-Reading asset [nova-multiselect-filter] from [vendor/outl1ne/nova-multiselect-filter/src/../dist/js/entry.js] ........................... 1ms DONE
+Booting tool [App\Nova\Tools\HelpLink] .................................................................................................. 0ms DONE
+Booting tool [App\Nova\Tools\QuickQuote] ................................................................................................ 0ms DONE
+
+Reading asset [1feb8c78f6bd6ba8a6a29cab353ebd8d] from [public/vendor/nova-kit/nova-packages-tool/tool.js] ............................... 0ms DONE
+Reading asset [nova-apex-chart] from [vendor/coroowicaksono/chart-js-integration/src/../dist/js/chart-js-integration.js] ................ 3ms DONE
+Reading asset [multiselect-field] from [vendor/outl1ne/nova-multiselect-field/src/../dist/js/entry.js] .................................. 2ms DONE
+Reading asset [nova-multiselect-filter] from [vendor/outl1ne/nova-multiselect-filter/src/../dist/js/entry.js] ........................... 2ms DONE
 Reading asset [nova-opening-hours-field] from [vendor/sadekd/nova-opening-hours-field/src/../dist/js/field.js] .......................... 1ms DONE
 Reading asset [nova-tag-input] from [vendor/superlatif/nova-tag-input/src/../dist/js/field.js] .......................................... 2ms DONE
 Writing file [public/vendor/nova-tools/app.js] .......................................................................................... 1ms DONE
