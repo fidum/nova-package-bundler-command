@@ -19,6 +19,10 @@ jobs:
           php-version: '8.1'
           coverage: none
 
+      - name: Configure Composer
+        run: |
+          composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
+
       - name: Install composer dependencies
         uses: ramsey/composer-install@v2
 
