@@ -8,7 +8,7 @@ use function Spatie\Snapshots\assertMatchesFileSnapshot;
 
 it('finds and bundles registered scripts and styles', function () {
     $this->app->setBasePath(testDirectory('fixtures'));
-    expect(public_path())->toBe('tests'.DIRECTORY_SEPARATOR.'fixtures'.DIRECTORY_SEPARATOR.'public');
+    expect(public_path())->toBe('tests'.DIRECTORY_SEPARATOR.'fixtures/public');
 
     Nova::$tools = [TestTool::make()];
     Nova::serving(function () {
