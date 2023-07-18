@@ -2,6 +2,14 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.0.3 - 2023-07-18
+
+### What's Changed
+
+- Ensure the file content is separated by a new line by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/11
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.0.2...1.0.3
+
 ## 1.0.2 - 2023-02-09
 
 ### What's Changed
