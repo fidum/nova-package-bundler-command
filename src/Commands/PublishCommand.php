@@ -31,7 +31,7 @@ class PublishCommand extends Command
                     $result = file_get_contents($path);
 
                     if ($result) {
-                        $content .= $result;
+                        $content .= trim($result).PHP_EOL;
                     }
 
                     return file_exists($path);
