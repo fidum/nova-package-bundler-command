@@ -2,6 +2,7 @@
 
 use Fidum\NovaPackageBundler\Http\Middleware\OverrideNovaPackagesMiddleware;
 use Laravel\Nova\Nova;
+
 use function Pest\testDirectory;
 
 it('replaces registered styles and scripts with the bundled files', function () {

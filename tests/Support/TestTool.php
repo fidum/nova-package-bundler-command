@@ -5,6 +5,7 @@ namespace Fidum\NovaPackageBundler\Tests\Support;
 use Illuminate\Http\Request;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
+
 use function Pest\testDirectory;
 
 class TestTool extends Tool

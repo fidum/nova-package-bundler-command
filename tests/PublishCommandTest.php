@@ -2,6 +2,7 @@
 
 use Fidum\NovaPackageBundler\Tests\Support\TestTool;
 use Laravel\Nova\Nova;
+
 use function Pest\Laravel\artisan;
 use function Pest\testDirectory;
 use function Spatie\Snapshots\assertMatchesFileSnapshot;
