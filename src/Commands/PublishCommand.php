@@ -5,6 +5,7 @@ namespace Fidum\NovaPackageBundler\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Laravel\Nova\Asset;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
@@ -26,12 +27,19 @@ class PublishCommand extends Command
             /** @var Asset $file */
             foreach (Nova::{$method}() as $file) {
                 $name = $file->name();
-                $path = $file->isRemote() ? public_path($file->path()) : $file->path();
+                $path = $file->path();
+
+                if ($file->isRemote() && ! Str::startsWith($path, ['http://', 'https://', '://'])) {
+                    $path = public_path($path);
+                }
+
                 $this->components->task("Reading asset [$name] from [$path]", function () use (&$content, $path) {
                     $result = file_get_contents($path);
 
                     if ($result) {
                         $content .= trim($result).PHP_EOL;
+
+                        return true;
                     }
 
                     return file_exists($path);

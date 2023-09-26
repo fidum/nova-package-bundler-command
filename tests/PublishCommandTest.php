@@ -16,6 +16,8 @@ it('finds and bundles registered scripts and styles', function () {
         Nova::style('test-package', testDirectory('fixtures/input/test.css'));
         Nova::remoteScript('/input/public.js');
         Nova::remoteStyle('/input/public.css');
+        Nova::remoteScript('https://unpkg.com/is-object@1.0.2/index.js');
+        Nova::remoteStyle('https://unpkg.com/tailwindcss@2.2.19/dist/components.min.css');
     });
 
     artisan('nova:tools:publish')
