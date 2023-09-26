@@ -5,7 +5,6 @@ use Laravel\Nova\Nova;
 
 use function Pest\Laravel\artisan;
 use function Pest\testDirectory;
-use function Spatie\Snapshots\assertMatchesFileSnapshot;
 
 it('finds and bundles registered scripts and styles', function () {
     $this->app->setBasePath(testDirectory('fixtures'));
@@ -26,12 +25,15 @@ it('finds and bundles registered scripts and styles', function () {
         ->execute();
 
     $script = public_path('/vendor/nova-tools/app.js');
-    expect($script)->toBeReadableFile();
-    assertMatchesFileSnapshot($script);
+    expect($script)
+        ->toBeReadableFile()
+        ->and(file_get_contents($script))
+        ->toMatchSnapshot();
 
     $style = public_path('/vendor/nova-tools/app.css');
-    expect($style)->toBeReadableFile();
-    assertMatchesFileSnapshot($style);
+    expect($style)->toBeReadableFile()
+        ->and(file_get_contents($style))
+        ->toMatchSnapshot();
 });
 
 afterAll(function () {
