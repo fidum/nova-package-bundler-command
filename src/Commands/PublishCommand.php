@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Fidum\NovaPackageBundler\Commands;
 
@@ -34,7 +35,7 @@ class PublishCommand extends Command
                 }
 
                 $this->components->task("Reading asset [$name] from [$path]", function () use (&$content, $path) {
-                    $result = file_get_contents($path);
+                    $result = $this->readFile($path);
 
                     if ($result) {
                         $content .= trim($result).PHP_EOL;
@@ -82,5 +83,24 @@ class PublishCommand extends Command
 
             $this->line('');
         }
+    }
+
+    private function readFile(string $path): ?string
+    {
+        $result = @file_get_contents($path, false, stream_context_create([
+            'ssl'  => [
+                'verify_peer' => false,
+                'verify_peer_name' => false
+            ],
+            'http' => [
+                'timeout' => 5,
+            ]
+        ]));
+
+        if (is_string($result)) {
+            return $result;
+        }
+
+        return null;
     }
 }

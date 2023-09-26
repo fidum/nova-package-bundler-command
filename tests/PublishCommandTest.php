@@ -18,6 +18,12 @@ it('finds and bundles registered scripts and styles', function () {
         Nova::remoteStyle('/input/public.css');
         Nova::remoteScript('https://unpkg.com/is-object@1.0.2/index.js');
         Nova::remoteStyle('https://unpkg.com/tailwindcss@2.2.19/dist/components.min.css');
+
+        // Files that don't exist are handled
+        Nova::script('test-package', testDirectory('fixtures/this-doesnt-exist.js'));
+        Nova::style('test-package', testDirectory('fixtures/input/this-doesnt-exist.css'));
+        Nova::remoteScript('this-doesnt-exist.js');
+        Nova::remoteStyle('this-doesnt-exist.css');
     });
 
     artisan('nova:tools:publish')
