@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Fidum\NovaPackageBundler\Commands;
@@ -88,13 +89,13 @@ class PublishCommand extends Command
     private function readFile(string $path): ?string
     {
         $result = @file_get_contents($path, false, stream_context_create([
-            'ssl'  => [
+            'ssl' => [
                 'verify_peer' => false,
-                'verify_peer_name' => false
+                'verify_peer_name' => false,
             ],
             'http' => [
                 'timeout' => 5,
-            ]
+            ],
         ]));
 
         if (is_string($result)) {
