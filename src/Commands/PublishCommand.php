@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fidum\NovaPackageBundler\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Laravel\Nova\Asset;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
@@ -26,12 +29,19 @@ class PublishCommand extends Command
             /** @var Asset $file */
             foreach (Nova::{$method}() as $file) {
                 $name = $file->name();
-                $path = $file->isRemote() ? public_path($file->path()) : $file->path();
+                $path = $file->path();
+
+                if ($file->isRemote() && ! Str::startsWith($path, ['http://', 'https://', '://'])) {
+                    $path = public_path($path);
+                }
+
                 $this->components->task("Reading asset [$name] from [$path]", function () use (&$content, $path) {
-                    $result = file_get_contents($path);
+                    $result = $this->readFile($path);
 
                     if ($result) {
                         $content .= trim($result).PHP_EOL;
+
+                        return true;
                     }
 
                     return file_exists($path);
@@ -74,5 +84,24 @@ class PublishCommand extends Command
 
             $this->line('');
         }
+    }
+
+    private function readFile(string $path): ?string
+    {
+        $result = @file_get_contents($path, false, stream_context_create([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+            ],
+            'http' => [
+                'timeout' => 5,
+            ],
+        ]));
+
+        if (is_string($result)) {
+            return $result;
+        }
+
+        return null;
     }
 }

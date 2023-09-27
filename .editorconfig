@@ -8,6 +8,9 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+[/tests/.pest/**.snap]
+insert_final_newline = false
+
 [/tests/fixtures/**.{js,css}]
 insert_final_newline = false
 
