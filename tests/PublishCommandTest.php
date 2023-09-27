@@ -8,7 +8,7 @@ use function Pest\testDirectory;
 
 it('finds and bundles registered scripts and styles', function () {
     $this->app->setBasePath(testDirectory('fixtures'));
-    expect(public_path())->toBe('tests/fixtures'.DIRECTORY_SEPARATOR.'public');
+    expect(public_path())->toBe('tests'.DIRECTORY_SEPARATOR.'fixtures'.DIRECTORY_SEPARATOR.'public');
 
     Nova::$tools = [TestTool::make()];
     Nova::serving(function () {
