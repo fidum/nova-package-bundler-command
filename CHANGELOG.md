@@ -2,6 +2,16 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.1.0 - 2023-09-27
+
+### What's Changed
+
+- Bump actions/checkout from 3 to 4 by @dependabot in https://github.com/fidum/nova-package-bundler-command/pull/12
+- Handle absolute url assets by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/15
+- Removed Laravel 9.x support
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.0.3...1.1.0
+
 ## 1.0.3 - 2023-07-18
 
 ### What's Changed
