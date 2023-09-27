@@ -7,7 +7,7 @@ use function Pest\testDirectory;
 
 it('replaces registered styles and scripts with the bundled files', function () {
     $this->app->setBasePath(testDirectory('fixtures'));
-    expect(public_path())->toBe('tests'.DIRECTORY_SEPARATOR.'fixtusres'.DIRECTORY_SEPARATOR.'public');
+    expect(public_path())->toBe('tests'.DIRECTORY_SEPARATOR.'fixtures'.DIRECTORY_SEPARATOR.'public');
 
     Nova::script('test-package', testDirectory('fixtures/input/test.js'));
     Nova::style('test-package', testDirectory('fixtures/input/test.css'));
