@@ -2,6 +2,15 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.1.1 - 2023-10-09
+
+### What's Changed
+
+- Bump stefanzweifel/git-auto-commit-action from 4 to 5 by @dependabot in https://github.com/fidum/nova-package-bundler-command/pull/16
+- Fetch absolute url assets using http client by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/17
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.1.0...1.1.1
+
 ## 1.1.0 - 2023-09-27
 
 ### What's Changed
