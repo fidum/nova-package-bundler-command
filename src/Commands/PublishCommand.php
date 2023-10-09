@@ -7,6 +7,7 @@ namespace Fidum\NovaPackageBundler\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Laravel\Nova\Asset;
 use Laravel\Nova\Events\ServingNova;
@@ -31,7 +32,7 @@ class PublishCommand extends Command
                 $name = $file->name();
                 $path = $file->path();
 
-                if ($file->isRemote() && ! Str::startsWith($path, ['http://', 'https://', '://'])) {
+                if ($file->isRemote() && ! $this->isUrl($path)) {
                     $path = public_path($path);
                 }
 
@@ -60,14 +61,6 @@ class PublishCommand extends Command
         return static::SUCCESS;
     }
 
-    private function methods(): array
-    {
-        return [
-            'allScripts' => ['js', public_path(config('nova-package-bundler-command.paths.script'))],
-            'allStyles' => ['css', public_path(config('nova-package-bundler-command.paths.style'))],
-        ];
-    }
-
     private function bootTools(): void
     {
         if (Nova::$tools) {
@@ -86,17 +79,25 @@ class PublishCommand extends Command
         }
     }
 
+    private function isUrl(string $path): bool
+    {
+        return Str::startsWith($path, ['http://', 'https://', '://']);
+    }
+
+    private function methods(): array
+    {
+        return [
+            'allScripts' => ['js', public_path(config('nova-package-bundler-command.paths.script'))],
+            'allStyles' => ['css', public_path(config('nova-package-bundler-command.paths.style'))],
+        ];
+    }
+
     private function readFile(string $path): ?string
     {
-        $result = @file_get_contents($path, false, stream_context_create([
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-            ],
-            'http' => [
-                'timeout' => 5,
-            ],
-        ]));
+        $result = match ($this->isUrl($path)) {
+            true => Http::withoutVerifying()->get($path)->body(),
+            default => @file_get_contents($path)
+        };
 
         if (is_string($result)) {
             return $result;
