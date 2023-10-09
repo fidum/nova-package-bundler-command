@@ -3,7 +3,6 @@
 namespace Fidum\NovaPackageBundler\Tests;
 
 use Fidum\NovaPackageBundler\NovaPackageBundlerServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Http;
 use Orchestra\Testbench\TestCase as Orchestra;
 
