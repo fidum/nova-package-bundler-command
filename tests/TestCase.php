@@ -3,7 +3,7 @@
 namespace Fidum\NovaPackageBundler\Tests;
 
 use Fidum\NovaPackageBundler\NovaPackageBundlerServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Http;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -12,9 +12,7 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Fidum\\NovaPackageBundler\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        Http::preventStrayRequests();
     }
 
     protected function getPackageProviders($app)
