@@ -2,6 +2,14 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.1.2 - 2023-10-11
+
+### What's Changed
+
+- Handle stringable objects by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/18
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.1.1...1.1.2
+
 ## 1.1.1 - 2023-10-09
 
 ### What's Changed
