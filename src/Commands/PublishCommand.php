@@ -30,7 +30,7 @@ class PublishCommand extends Command
             /** @var Asset $file */
             foreach (Nova::{$method}() as $file) {
                 $name = $file->name();
-                $path = $file->path();
+                $path = (string) $file->path();
 
                 if ($file->isRemote() && ! $this->isUrl($path)) {
                     $path = public_path($path);
