@@ -3,6 +3,7 @@
 use Fidum\NovaPackageBundler\Tests\Support\TestTool;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\HtmlString;
 use Laravel\Nova\Nova;
 
 use function Pest\Laravel\artisan;
@@ -16,7 +17,7 @@ it('finds and bundles registered scripts and styles', function () {
     Nova::serving(function () {
         Nova::script('test-package', testDirectory('fixtures/input/test.js'));
         Nova::style('test-package', testDirectory('fixtures/input/test.css'));
-        Nova::remoteScript('/input/public.js');
+        Nova::remoteScript(new HtmlString('/input/public.js'));
         Nova::remoteStyle('/input/public.css');
         Nova::remoteScript('https://example.com/index.js');
         Nova::remoteStyle('https://example.com/app.css');
