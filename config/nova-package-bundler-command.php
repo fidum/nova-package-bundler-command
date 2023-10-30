@@ -16,4 +16,18 @@ return [
         'script' => '/vendor/nova-tools/app.js',
         'style' => '/vendor/nova-tools/app.css',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Excluded assets
+    |--------------------------------------------------------------------------
+    |
+    | Define the assets to skip when bundling packages. The name of the script
+    | or style with which it is added is expected here.
+    |
+    */
+    'excluded' => [
+        'scripts' => [],
+        'styles' => [],
+    ]
 ];

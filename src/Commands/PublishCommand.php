@@ -30,6 +30,12 @@ class PublishCommand extends Command
             /** @var Asset $file */
             foreach (Nova::{$method}() as $file) {
                 $name = $file->name();
+                $configAssetType = $method == 'allScripts' ? 'scripts' : 'styles';
+
+                if (in_array($name, config('nova-package-bundler-command.excluded.' . $configAssetType, []))) {
+                    continue;
+                }
+
                 $path = (string) $file->path();
 
                 if ($file->isRemote() && ! $this->isUrl($path)) {
