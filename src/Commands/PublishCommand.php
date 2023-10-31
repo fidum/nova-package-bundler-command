@@ -32,14 +32,15 @@ class PublishCommand extends Command
                 $name = $file->name();
                 $configAssetType = $method == 'allScripts' ? 'scripts' : 'styles';
 
-                if (in_array($name, config('nova-package-bundler-command.excluded.' . $configAssetType, []))) {
-                    continue;
-                }
-
                 $path = (string) $file->path();
 
                 if ($file->isRemote() && ! $this->isUrl($path)) {
                     $path = public_path($path);
+                }
+
+                if (in_array($name, config('nova-package-bundler-command.excluded.' . $configAssetType, []))) {
+                    Http::withoutVerifying()->get($path)->body();
+                    continue;
                 }
 
                 $this->components->task("Reading asset [$name] from [$path]", function () use (&$content, $path) {
