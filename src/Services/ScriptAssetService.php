@@ -4,7 +4,7 @@ namespace Fidum\NovaPackageBundler\Services;
 
 use Fidum\NovaPackageBundler\Collections\AssetCollection;
 use Fidum\NovaPackageBundler\Contracts\Collections\AssetCollection as AssetCollectionContract;
-use Fidum\NovaPackageBundler\Contracts\Filters\ScriptExcludedFilter as ScriptExcludedFilterContract;
+use Fidum\NovaPackageBundler\Contracts\Collections\FilterCollection;
 use Fidum\NovaPackageBundler\Contracts\Services\ScriptAssetService as ScriptAssetServiceContract;
 use Fidum\NovaPackageBundler\Services\Concerns\BuildsOutputPath;
 use Fidum\NovaPackageBundler\Services\Concerns\CollectsAllowedAssets;
@@ -18,8 +18,8 @@ class ScriptAssetService implements ScriptAssetServiceContract
     use CollectsExcludedAssets;
 
     public function __construct(
-        protected ScriptExcludedFilterContract $filter,
         protected string $outputPath,
+        protected FilterCollection $filters,
     ) {}
 
     public function collect(): AssetCollectionContract
