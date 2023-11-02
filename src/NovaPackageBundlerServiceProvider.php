@@ -3,10 +3,22 @@
 namespace Fidum\NovaPackageBundler;
 
 use Fidum\NovaPackageBundler\Commands\PublishCommand;
+use Fidum\NovaPackageBundler\Contracts\Collections\AssetCollection as AssetCollectionContract;
+use Fidum\NovaPackageBundler\Contracts\Filters\ScriptExcludedFilter as ScriptExcludedFilterContract;
+use Fidum\NovaPackageBundler\Contracts\Filters\StyleExcludedFilter as StyleExcludedFilterContract;
+use Fidum\NovaPackageBundler\Contracts\Services\ScriptAssetService as ScriptAssetServiceContract;
+use Fidum\NovaPackageBundler\Contracts\Services\StyleAssetService as StyleAssetServiceContract;
+use Fidum\NovaPackageBundler\Filters\ScriptExcludedFilter;
+use Fidum\NovaPackageBundler\Filters\StyleExcludedFilter;
+use Fidum\NovaPackageBundler\Services\ScriptAssetService;
+use Fidum\NovaPackageBundler\Services\StyleAssetService;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Support\Arr;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class NovaPackageBundlerServiceProvider extends PackageServiceProvider
+class NovaPackageBundlerServiceProvider extends PackageServiceProvider implements DeferrableProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -14,5 +26,45 @@ class NovaPackageBundlerServiceProvider extends PackageServiceProvider
             ->name('nova-package-bundler-command')
             ->hasConfigFile()
             ->hasCommand(PublishCommand::class);
+    }
+
+    public function registeringPackage()
+    {
+        $this->app->bind(ScriptExcludedFilterContract::class, function (Container $app) {
+            return new ScriptExcludedFilter(
+                Arr::wrap($app->make('config')->get('nova-package-bundler-command.excluded.scripts')),
+            );
+        });
+
+        $this->app->bind(ScriptAssetServiceContract::class, function (Container $app) {
+            return new ScriptAssetService(
+                $app->make(ScriptExcludedFilterContract::class),
+                $app->make('config')->get('nova-package-bundler-command.paths.script'),
+            );
+        });
+
+        $this->app->bind(StyleExcludedFilterContract::class, function (Container $app) {
+            return new StyleExcludedFilter(
+                Arr::wrap($app->make('config')->get('nova-package-bundler-command.excluded.styles')),
+            );
+        });
+
+        $this->app->bind(StyleAssetServiceContract::class, function (Container $app) {
+            return new StyleAssetService(
+                $app->make(StyleExcludedFilterContract::class),
+                $app->make('config')->get('nova-package-bundler-command.paths.style'),
+            );
+        });
+    }
+
+    public function provides()
+    {
+        return [
+            AssetCollectionContract::class,
+            ScriptAssetServiceContract::class,
+            ScriptExcludedFilterContract::class,
+            StyleAssetServiceContract::class,
+            StyleExcludedFilterContract::class,
+        ];
     }
 }

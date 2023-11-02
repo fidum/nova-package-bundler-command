@@ -29,5 +29,5 @@ return [
     'excluded' => [
         'scripts' => [],
         'styles' => [],
-    ]
+    ],
 ];
