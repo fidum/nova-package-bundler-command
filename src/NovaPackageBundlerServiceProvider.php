@@ -4,7 +4,6 @@ namespace Fidum\NovaPackageBundler;
 
 use Fidum\NovaPackageBundler\Collections\FilterCollection;
 use Fidum\NovaPackageBundler\Commands\PublishCommand;
-use Fidum\NovaPackageBundler\Contracts\Collections\AssetCollection as AssetCollectionContract;
 use Fidum\NovaPackageBundler\Contracts\Collections\FilterCollection as FilterCollectionContract;
 use Fidum\NovaPackageBundler\Contracts\Filters\ScriptExcludedFilter as ScriptExcludedFilterContract;
 use Fidum\NovaPackageBundler\Contracts\Filters\SkipUrlAssetsFilter as SkipUrlAssetsFilterContract;
@@ -78,7 +77,7 @@ class NovaPackageBundlerServiceProvider extends PackageServiceProvider implement
     public function provides()
     {
         return [
-            AssetCollectionContract::class,
+            FilterCollectionContract::class,
             ScriptAssetServiceContract::class,
             ScriptExcludedFilterContract::class,
             StyleAssetServiceContract::class,
