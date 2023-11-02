@@ -2,6 +2,19 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.2.0 - 2023-11-02
+
+### What's Changed
+
+- Add setting to exclude bundling specific scripts and styles by @sanderbaas in https://github.com/fidum/nova-package-bundler-command/pull/20
+- Exclude url assets by default by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/21
+
+### New Contributors
+
+- @sanderbaas made their first contribution in https://github.com/fidum/nova-package-bundler-command/pull/20
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.1.2...1.2.0
+
 ## 1.1.2 - 2023-10-11
 
 ### What's Changed
