@@ -58,10 +58,10 @@ it('keeps configured assets that we excluded from the bundle', function () {
     expect(Nova::$scripts)->toHaveCount(3)
         ->and(Nova::$styles)->toHaveCount(3)
         ->and(Nova::$scripts[0])->path()->toEqual('https://example.com/index.js')
-        ->and(Nova::$scripts[1])->path()->toEqual(str_replace('/', DIRECTORY_SEPARATOR, 'tests/fixtures/input/test.js'))
+        ->and(Nova::$scripts[1])->path()->toEqual(testDirectory('fixtures/input/test.css'))
         ->and(Nova::$scripts[2])->path()->toEqual('http://localhost/vendor/nova-tools/app.js')
         ->and(Nova::$styles[0])->path()->toEqual('https://example.com/app.css')
-        ->and(Nova::$styles[1])->path()->toEqual(str_replace('/', DIRECTORY_SEPARATOR, 'tests/fixtures/input/test.css'))
+        ->and(Nova::$styles[1])->path()->toEqual(testDirectory('fixtures/input/test.css'))
         ->and(Nova::$styles[2])->path()->toEqual('http://localhost/vendor/nova-tools/app.css');
 });
 
