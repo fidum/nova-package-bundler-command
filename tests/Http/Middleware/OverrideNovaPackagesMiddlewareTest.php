@@ -39,9 +39,9 @@ it('replaces registered styles and scripts with the bundled files and excluded a
 
     expect(Nova::$scripts)->toHaveCount(2)
         ->and(Nova::$styles)->toHaveCount(2)
-        ->and(Nova::$scripts[0])->path()->toEqual(str_replace('/', DIRECTORY_SEPARATOR, 'tests/fixtures/input/test.js'))
+        ->and(Nova::$scripts[0])->path()->toEqual(testDirectory('fixtures/input/test.js'))
         ->and(Nova::$scripts[1])->path()->toEqual('http://localhost/vendor/nova-tools/app.js')
-        ->and(Nova::$styles[0])->path()->toEqual(str_replace('/', DIRECTORY_SEPARATOR, 'tests/fixtures/input/test.css'))
+        ->and(Nova::$styles[0])->path()->toEqual(testDirectory('fixtures/input/test.css'))
         ->and(Nova::$styles[1])->path()->toEqual('http://localhost/vendor/nova-tools/app.css');
 });
 
