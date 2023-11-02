@@ -6,13 +6,13 @@ use Fidum\NovaPackageBundler\Collections\FilterCollection;
 use Fidum\NovaPackageBundler\Commands\PublishCommand;
 use Fidum\NovaPackageBundler\Contracts\Collections\FilterCollection as FilterCollectionContract;
 use Fidum\NovaPackageBundler\Contracts\Filters\ScriptExcludedFilter as ScriptExcludedFilterContract;
-use Fidum\NovaPackageBundler\Contracts\Filters\SkipUrlAssetsFilter as SkipUrlAssetsFilterContract;
 use Fidum\NovaPackageBundler\Contracts\Filters\StyleExcludedFilter as StyleExcludedFilterContract;
+use Fidum\NovaPackageBundler\Contracts\Filters\UrlAssetsExcludedFilter as UrlAssetsExcludedFilterContract;
 use Fidum\NovaPackageBundler\Contracts\Services\ScriptAssetService as ScriptAssetServiceContract;
 use Fidum\NovaPackageBundler\Contracts\Services\StyleAssetService as StyleAssetServiceContract;
 use Fidum\NovaPackageBundler\Filters\ScriptExcludedFilter;
-use Fidum\NovaPackageBundler\Filters\SkipUrlAssetsFilter;
 use Fidum\NovaPackageBundler\Filters\StyleExcludedFilter;
+use Fidum\NovaPackageBundler\Filters\UrlAssetsExcludedFilter;
 use Fidum\NovaPackageBundler\Services\ScriptAssetService;
 use Fidum\NovaPackageBundler\Services\StyleAssetService;
 use Illuminate\Contracts\Container\Container;
@@ -35,7 +35,7 @@ class NovaPackageBundlerServiceProvider extends PackageServiceProvider implement
     {
         $this->app->bind(FilterCollectionContract::class, function (Container $app) {
             return FilterCollection::make([
-                SkipUrlAssetsFilterContract::class,
+                UrlAssetsExcludedFilterContract::class,
             ]);
         });
 
@@ -59,8 +59,8 @@ class NovaPackageBundlerServiceProvider extends PackageServiceProvider implement
             );
         });
 
-        $this->app->bind(SkipUrlAssetsFilterContract::class, function (Container $app) {
-            return new SkipUrlAssetsFilter(
+        $this->app->bind(UrlAssetsExcludedFilterContract::class, function (Container $app) {
+            return new UrlAssetsExcludedFilter(
                 (bool) $app->make('config')->get('nova-package-bundler-command.download_url_assets'),
             );
         });
@@ -82,6 +82,7 @@ class NovaPackageBundlerServiceProvider extends PackageServiceProvider implement
             ScriptExcludedFilterContract::class,
             StyleAssetServiceContract::class,
             StyleExcludedFilterContract::class,
+            UrlAssetsExcludedFilterContract::class,
         ];
     }
 }

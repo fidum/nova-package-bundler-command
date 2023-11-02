@@ -6,9 +6,9 @@ use Fidum\NovaPackageBundler\Contracts\Collections\AssetCollection;
 
 interface AssetService
 {
-    public function collect(): AssetCollection;
-
     public function allowed(): AssetCollection;
+
+    public function collect(): AssetCollection;
 
     public function excluded(): AssetCollection;
 

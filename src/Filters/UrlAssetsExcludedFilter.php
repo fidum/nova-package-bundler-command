@@ -3,10 +3,10 @@
 namespace Fidum\NovaPackageBundler\Filters;
 
 use Fidum\NovaPackageBundler\Concerns\IdentifiesUrls;
-use Fidum\NovaPackageBundler\Contracts\Filters\SkipUrlAssetsFilter as SkipUrlAssetsFilterContract;
+use Fidum\NovaPackageBundler\Contracts\Filters\UrlAssetsExcludedFilter as UrlAssetsExcludedFilterContract;
 use Laravel\Nova\Asset;
 
-class SkipUrlAssetsFilter implements SkipUrlAssetsFilterContract
+class UrlAssetsExcludedFilter implements UrlAssetsExcludedFilterContract
 {
     use IdentifiesUrls;
 
