@@ -18,27 +18,9 @@ You can publish the config file with:
 php artisan vendor:publish --tag="nova-package-bundler-command-config"
 ```
 
-This is the contents of the published config file:
+[Click here to see the contents of the config file](config/nova-package-bundler-command.php).
 
-```php
-return [
-    /*
-    |--------------------------------------------------------------------------
-    | Output paths
-    |--------------------------------------------------------------------------
-    |
-    | Define the output paths where the command will save the contents of the
-    | bundled packages. These paths will be wrapped with `public_path` as
-    | the output needs to always end up in the public directory so that
-    | we can tell Nova to load it via the ASSET_URL.
-    |
-    */
-    'paths' => [
-        'script' => '/vendor/nova-tools/app.js',
-        'style' => '/vendor/nova-tools/app.css',
-    ],
-];
-```
+You should read through the config, which serves as additional documentation and make changes as needed.
 
 Update Nova configuration file in `config/nova.php`. Add the `OverrideNovaPackagesMiddleware` to the `middleware` option after `BootTools`:
 
