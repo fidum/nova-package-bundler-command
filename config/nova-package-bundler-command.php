@@ -19,6 +19,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Download url assets
+    |--------------------------------------------------------------------------
+    |
+    | Set this value to `true` if you want the bundler command to download
+    | assets where the path is already a url. When `false`, url assets are
+    | ignored when bundling and nova will load them as normal.
+    |
+    */
+    'download_url_assets' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Excluded assets
     |--------------------------------------------------------------------------
     |

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fidum\NovaPackageBundler\Commands;
 
+use Fidum\NovaPackageBundler\Concerns\IdentifiesUrls;
 use Fidum\NovaPackageBundler\Contracts\Services\AssetService;
 use Fidum\NovaPackageBundler\Contracts\Services\ScriptAssetService;
 use Fidum\NovaPackageBundler\Contracts\Services\StyleAssetService;
@@ -11,13 +12,14 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 use Laravel\Nova\Asset;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 
 class PublishCommand extends Command
 {
+    use IdentifiesUrls;
+
     public $signature = 'nova:tools:publish';
 
     public $description = 'Combines nova styles and scripts into single asset files';
@@ -88,11 +90,6 @@ class PublishCommand extends Command
 
             $this->line('');
         }
-    }
-
-    private function isUrl(string $path): bool
-    {
-        return Str::startsWith($path, ['http://', 'https://', '://']);
     }
 
     private function readFile(string $path): ?string

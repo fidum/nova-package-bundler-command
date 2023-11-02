@@ -8,6 +8,6 @@ trait CollectsAllowedAssets
 {
     public function allowed(): AssetCollectionContract
     {
-        return $this->collect()->applyFilter($this->filter)->values();
+        return $this->collect()->applyFilters($this->filters)->values();
     }
 }

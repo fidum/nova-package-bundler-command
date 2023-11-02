@@ -8,6 +8,6 @@ trait CollectsExcludedAssets
 {
     public function excluded(): AssetCollectionContract
     {
-        return $this->collect()->rejectFilter($this->filter)->values();
+        return $this->collect()->rejectFilters($this->filters)->values();
     }
 }

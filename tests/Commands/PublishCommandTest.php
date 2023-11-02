@@ -43,6 +43,19 @@ it('finds and bundles registered scripts and styles', function () {
 
     assertFileContent(public_path('/vendor/nova-tools/app.js'));
     assertFileContent(public_path('/vendor/nova-tools/app.css'));
+    Http::assertSentCount(0);
+});
+
+it('downloads url assets when enabled', function () {
+    config()->set('nova-package-bundler-command.download_url_assets', true);
+    expect(public_path())->toBe('tests'.DIRECTORY_SEPARATOR.'fixtures'.DIRECTORY_SEPARATOR.'public');
+
+    artisan('nova:tools:publish')
+        ->assertSuccessful()
+        ->execute();
+
+    assertFileContent(public_path('/vendor/nova-tools/app.js'));
+    assertFileContent(public_path('/vendor/nova-tools/app.css'));
     assertHttpSent();
 });
 
@@ -58,7 +71,7 @@ it('finds and bundles registered scripts and styles and excludes configured asse
 
     assertFileContent(public_path('/vendor/nova-tools/app.js'));
     assertFileContent(public_path('/vendor/nova-tools/app.css'));
-    assertHttpSent();
+    Http::assertSentCount(0);
 });
 
 afterEach(function () {
