@@ -6,6 +6,6 @@ trait BuildsOutputPath
 {
     public function outputPath(): string
     {
-        return public_path($this->outputPath);
+        return $this->outputPath;
     }
 }
