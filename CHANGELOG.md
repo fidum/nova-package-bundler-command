@@ -2,6 +2,15 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.3.0 - 2024-03-12
+
+### What's Changed
+
+* Run tests on PHP 8.3 by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/22
+* Support Laravel 11 by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/25
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.2.1...1.3.0
+
 ## 1.2.1 - 2023-11-02
 
 ### What's Changed
