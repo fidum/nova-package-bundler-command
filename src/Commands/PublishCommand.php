@@ -6,9 +6,9 @@ namespace Fidum\NovaPackageBundler\Commands;
 
 use Fidum\NovaPackageBundler\Concerns\IdentifiesUrls;
 use Fidum\NovaPackageBundler\Contracts\Services\AssetService;
+use Fidum\NovaPackageBundler\Contracts\Services\ManifestBuilderService;
 use Fidum\NovaPackageBundler\Contracts\Services\ScriptAssetService;
 use Fidum\NovaPackageBundler\Contracts\Services\StyleAssetService;
-use Fidum\NovaPackageBundler\Contracts\Services\ManifestBuilderService;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
