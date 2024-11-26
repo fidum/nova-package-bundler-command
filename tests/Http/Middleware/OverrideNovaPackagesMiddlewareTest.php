@@ -31,6 +31,27 @@ it('replaces registered styles and scripts with the bundled files', function () 
         ->and(Nova::$styles[1])->path()->toEqual('http://localhost/vendor/nova-tools/app.css');
 });
 
+it('replaces registered styles and scripts with the versioned bundled files', function () {
+    config()->set('nova-package-bundler-command.version.enabled', true);
+    expect(public_path())->toBe('tests'.DIRECTORY_SEPARATOR.'fixtures'.DIRECTORY_SEPARATOR.'public');
+    expect(Nova::$scripts)->toHaveCount(3)->and(Nova::$styles)->toHaveCount(3);
+
+    file_put_contents(public_path('vendor/nova-tools/manifest.json'), json_encode([
+        '/vendor/nova-tools/app.js' => '/vendor/nova-tools/app.js?id=123js',
+        '/vendor/nova-tools/app.css' => '/vendor/nova-tools/app.css?id=123css',
+    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
+    $middleware = $this->app->make(OverrideNovaPackagesMiddleware::class);
+    $middleware->handle(request(), fn () => null);
+
+    expect(Nova::$scripts)->toHaveCount(2)
+        ->and(Nova::$styles)->toHaveCount(2)
+        ->and(Nova::$scripts[0])->path()->toEqual('https://example.com/index.js')
+        ->and(Nova::$scripts[1])->path()->toEqual('http://localhost/vendor/nova-tools/app.js?id=123js')
+        ->and(Nova::$styles[0])->path()->toEqual('https://example.com/app.css')
+        ->and(Nova::$styles[1])->path()->toEqual('http://localhost/vendor/nova-tools/app.css?id=123css');
+});
+
 it('keeps url assets that were excluded from the bundle', function () {
     config()->set('nova-package-bundler-command.download_url_assets', true);
     expect(public_path())->toBe('tests'.DIRECTORY_SEPARATOR.'fixtures'.DIRECTORY_SEPARATOR.'public');

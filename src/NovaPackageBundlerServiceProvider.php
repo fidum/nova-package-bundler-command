@@ -8,14 +8,19 @@ use Fidum\NovaPackageBundler\Contracts\Collections\FilterCollection as FilterCol
 use Fidum\NovaPackageBundler\Contracts\Filters\ScriptExcludedFilter as ScriptExcludedFilterContract;
 use Fidum\NovaPackageBundler\Contracts\Filters\StyleExcludedFilter as StyleExcludedFilterContract;
 use Fidum\NovaPackageBundler\Contracts\Filters\UrlAssetsExcludedFilter as UrlAssetsExcludedFilterContract;
+use Fidum\NovaPackageBundler\Contracts\Services\ManifestReaderService as ManifestReaderServiceContract;
+use Fidum\NovaPackageBundler\Contracts\Services\ManifestBuilderService as ManifestWriterServiceContract;
 use Fidum\NovaPackageBundler\Contracts\Services\ScriptAssetService as ScriptAssetServiceContract;
 use Fidum\NovaPackageBundler\Contracts\Services\StyleAssetService as StyleAssetServiceContract;
 use Fidum\NovaPackageBundler\Filters\ScriptExcludedFilter;
 use Fidum\NovaPackageBundler\Filters\StyleExcludedFilter;
 use Fidum\NovaPackageBundler\Filters\UrlAssetsExcludedFilter;
+use Fidum\NovaPackageBundler\Services\ManifestReaderService;
+use Fidum\NovaPackageBundler\Services\ManifestBuilderService;
 use Fidum\NovaPackageBundler\Services\ScriptAssetService;
 use Fidum\NovaPackageBundler\Services\StyleAssetService;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\Arr;
 use Spatie\LaravelPackageTools\Package;
@@ -39,36 +44,54 @@ class NovaPackageBundlerServiceProvider extends PackageServiceProvider implement
             ]);
         });
 
+        $this->app->scoped(ManifestReaderServiceContract::class, function (Container $app) {
+            return new ManifestReaderService(
+                filesystem: $app->make(Filesystem::class),
+                enabled: $app->make('config')->boolean('nova-package-bundler-command.version.enabled'),
+                manifestPath: $app->make('config')->string('nova-package-bundler-command.version.manifest'),
+            );
+        });
+
+        $this->app->scoped(ManifestWriterServiceContract::class, function (Container $app) {
+            return new ManifestBuilderService(
+                filesystem: $app->make(Filesystem::class),
+                enabled: $app->make('config')->boolean('nova-package-bundler-command.version.enabled'),
+                manifestPath: $app->make('config')->string('nova-package-bundler-command.version.manifest'),
+            );
+        });
+
         $this->app->bind(ScriptExcludedFilterContract::class, function (Container $app) {
             return new ScriptExcludedFilter(
-                Arr::wrap($app->make('config')->get('nova-package-bundler-command.excluded.scripts')),
+                exclusions: Arr::wrap($app->make('config')->get('nova-package-bundler-command.excluded.scripts')),
             );
         });
 
         $this->app->bind(ScriptAssetServiceContract::class, function (Container $app) {
             return new ScriptAssetService(
-                $app->make('config')->get('nova-package-bundler-command.paths.script'),
-                $app->make(FilterCollectionContract::class)
+                manifestReaderService: $app->make(ManifestReaderServiceContract::class),
+                outputPath: $app->make('config')->get('nova-package-bundler-command.paths.script'),
+                filters: $app->make(FilterCollectionContract::class)
                     ->push(ScriptExcludedFilterContract::class),
             );
         });
 
         $this->app->bind(StyleExcludedFilterContract::class, function (Container $app) {
             return new StyleExcludedFilter(
-                Arr::wrap($app->make('config')->get('nova-package-bundler-command.excluded.styles')),
+                exclusions: Arr::wrap($app->make('config')->get('nova-package-bundler-command.excluded.styles')),
             );
         });
 
         $this->app->bind(UrlAssetsExcludedFilterContract::class, function (Container $app) {
             return new UrlAssetsExcludedFilter(
-                (bool) $app->make('config')->get('nova-package-bundler-command.download_url_assets'),
+                allowed: (bool) $app->make('config')->get('nova-package-bundler-command.download_url_assets'),
             );
         });
 
         $this->app->bind(StyleAssetServiceContract::class, function (Container $app) {
             return new StyleAssetService(
-                $app->make('config')->get('nova-package-bundler-command.paths.style'),
-                $app->make(FilterCollectionContract::class)
+                manifestReaderService: $app->make(ManifestReaderServiceContract::class),
+                outputPath: $app->make('config')->get('nova-package-bundler-command.paths.style'),
+                filters: $app->make(FilterCollectionContract::class)
                     ->push(StyleExcludedFilterContract::class),
             );
         });
@@ -78,6 +101,8 @@ class NovaPackageBundlerServiceProvider extends PackageServiceProvider implement
     {
         return [
             FilterCollectionContract::class,
+            ManifestReaderServiceContract::class,
+            ManifestBuilderService::class,
             ScriptAssetServiceContract::class,
             ScriptExcludedFilterContract::class,
             StyleAssetServiceContract::class,
