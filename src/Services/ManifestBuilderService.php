@@ -10,7 +10,6 @@ class ManifestBuilderService implements ManifestWriterServiceContract
     public array $assets = [];
 
     public function __construct(
-        private readonly Filesystem $filesystem,
         private readonly bool $enabled,
         private readonly string $manifestPath,
     ) {}

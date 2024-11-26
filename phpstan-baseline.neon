@@ -1,21 +1,2 @@
 parameters:
-	ignoreErrors:
-		-
-			message: "#^Method Fidum\\\\NovaPackageBundler\\\\Services\\\\ScriptAssetService\\:\\:allowed\\(\\) should return Fidum\\\\NovaPackageBundler\\\\Contracts\\\\Collections\\\\AssetCollection but returns Illuminate\\\\Support\\\\Enumerable\\<int, mixed\\>\\.$#"
-			count: 1
-			path: src/Services/ScriptAssetService.php
-
-		-
-			message: "#^Method Fidum\\\\NovaPackageBundler\\\\Services\\\\ScriptAssetService\\:\\:excluded\\(\\) should return Fidum\\\\NovaPackageBundler\\\\Contracts\\\\Collections\\\\AssetCollection but returns Illuminate\\\\Support\\\\Enumerable\\<int, mixed\\>\\.$#"
-			count: 1
-			path: src/Services/ScriptAssetService.php
-
-		-
-			message: "#^Method Fidum\\\\NovaPackageBundler\\\\Services\\\\StyleAssetService\\:\\:allowed\\(\\) should return Fidum\\\\NovaPackageBundler\\\\Contracts\\\\Collections\\\\AssetCollection but returns Illuminate\\\\Support\\\\Enumerable\\<int, mixed\\>\\.$#"
-			count: 1
-			path: src/Services/StyleAssetService.php
-
-		-
-			message: "#^Method Fidum\\\\NovaPackageBundler\\\\Services\\\\StyleAssetService\\:\\:excluded\\(\\) should return Fidum\\\\NovaPackageBundler\\\\Contracts\\\\Collections\\\\AssetCollection but returns Illuminate\\\\Support\\\\Enumerable\\<int, mixed\\>\\.$#"
-			count: 1
-			path: src/Services/StyleAssetService.php
+	ignoreErrors: []

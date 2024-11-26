@@ -54,7 +54,6 @@ class NovaPackageBundlerServiceProvider extends PackageServiceProvider implement
 
         $this->app->scoped(ManifestWriterServiceContract::class, function (Container $app) {
             return new ManifestBuilderService(
-                filesystem: $app->make(Filesystem::class),
                 enabled: (bool) $app->make('config')->get('nova-package-bundler-command.version.enabled'),
                 manifestPath: (string) $app->make('config')->get('nova-package-bundler-command.version.manifest'),
             );
