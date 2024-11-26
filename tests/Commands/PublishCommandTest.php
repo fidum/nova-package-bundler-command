@@ -94,6 +94,10 @@ it('finds and bundles registered scripts and styles generates manifest file', fu
 afterEach(function () {
     Nova::$scripts = [];
     Nova::$styles = [];
+
+    @unlink(public_path('/vendor/nova-tools/app.js'));
+    @unlink(public_path('/vendor/nova-tools/app.css'));
+    @unlink(public_path('/vendor/nova-tools/manifest.json'));
 });
 
 function assertFileContent(string $path)
@@ -102,8 +106,6 @@ function assertFileContent(string $path)
         ->toBeReadableFile()
         ->and(file_get_contents($path))
         ->toMatchSnapshot();
-
-    @unlink($path);
 }
 
 function assertHttpSent()

@@ -89,4 +89,6 @@ it('keeps configured assets that we excluded from the bundle', function () {
 afterEach(function () {
     Nova::$scripts = [];
     Nova::$styles = [];
+
+    @unlink(public_path('/vendor/nova-tools/manifest.json'));
 });
