@@ -22,6 +22,7 @@ jobs:
       - name: Configure Composer
         run: |
           composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
+          composer require laravel/nova:4.33.2 --no-interaction --no-update
 
       - name: Install composer dependencies
         uses: ramsey/composer-install@v3
