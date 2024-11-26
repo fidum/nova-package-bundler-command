@@ -69,6 +69,8 @@ Reading asset [nova-multiselect-filter] from [vendor/outl1ne/nova-multiselect-fi
 Reading asset [nova-opening-hours-field] from [vendor/sadekd/nova-opening-hours-field/src/../dist/css/field.css] ........................ 0ms DONE
 Reading asset [nova-tag-input] from [vendor/superlatif/nova-tag-input/src/../dist/css/field.css] ........................................ 0ms DONE
 Writing file [public/vendor/nova-tools/app.css] ......................................................................................... 0ms DONE
+
+Writing file [public/vendor/nova-tools/manifest.json] ................................................................................... 0ms DONE
 ```
 
 ## Testing
