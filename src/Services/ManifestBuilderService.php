@@ -3,7 +3,6 @@
 namespace Fidum\NovaPackageBundler\Services;
 
 use Fidum\NovaPackageBundler\Contracts\Services\ManifestBuilderService as ManifestWriterServiceContract;
-use Illuminate\Filesystem\Filesystem;
 
 class ManifestBuilderService implements ManifestWriterServiceContract
 {
