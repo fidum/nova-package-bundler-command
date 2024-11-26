@@ -42,4 +42,24 @@ return [
         'scripts' => [],
         'styles' => [],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Versioning
+    |--------------------------------------------------------------------------
+    |
+    | Enable versioning of generated assets. This will append a query string
+    | to the asset path with a unique value based on the file content. This
+    | is done by generating a manifest file that maps the original path to
+    | the versioned path.
+    |
+    | Note: This feature requires the `manifest.json` file to be readable in
+    | the public directory.
+    |
+    */
+    'version' => [
+        'enabled' => false,
+
+        'manifest' => '/vendor/nova-tools/manifest.json',
+    ],
 ];

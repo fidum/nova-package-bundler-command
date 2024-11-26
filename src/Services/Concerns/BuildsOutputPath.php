@@ -6,6 +6,6 @@ trait BuildsOutputPath
 {
     public function outputPath(): string
     {
-        return $this->outputPath;
+        return $this->manifestReaderService->getPath($this->outputPath);
     }
 }

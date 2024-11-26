@@ -18,6 +18,7 @@ class ScriptAssetService implements ScriptAssetServiceContract
     use CollectsExcludedAssets;
 
     public function __construct(
+        protected ManifestReaderService $manifestReaderService,
         protected string $outputPath,
         protected FilterCollection $filters,
     ) {}

@@ -6,6 +6,7 @@ namespace Fidum\NovaPackageBundler\Commands;
 
 use Fidum\NovaPackageBundler\Concerns\IdentifiesUrls;
 use Fidum\NovaPackageBundler\Contracts\Services\AssetService;
+use Fidum\NovaPackageBundler\Contracts\Services\ManifestBuilderService;
 use Fidum\NovaPackageBundler\Contracts\Services\ScriptAssetService;
 use Fidum\NovaPackageBundler\Contracts\Services\StyleAssetService;
 use Illuminate\Console\Command;
@@ -28,22 +29,27 @@ class PublishCommand extends Command
         Filesystem $filesystem,
         ScriptAssetService $scriptAssetService,
         StyleAssetService $styleAssetService,
+        ManifestBuilderService $manifestService,
     ): int {
-        ServingNova::dispatch(new Request());
+        ServingNova::dispatch(new Request);
 
         $this->bootTools();
-        $this->process($filesystem, $scriptAssetService);
-        $this->process($filesystem, $styleAssetService);
+        $this->process($filesystem, $scriptAssetService, $manifestService);
+        $this->process($filesystem, $styleAssetService, $manifestService);
+        $this->createManifestFile($filesystem, $manifestService);
 
         return static::SUCCESS;
     }
 
-    private function process(Filesystem $filesystem, AssetService $service)
-    {
+    private function process(
+        Filesystem $filesystem,
+        AssetService $assetService,
+        ManifestBuilderService $manifestService,
+    ): void {
         $content = '';
 
         /** @var Asset $asset */
-        foreach ($service->allowed() as $asset) {
+        foreach ($assetService->allowed() as $asset) {
             $name = $asset->name();
             $path = (string) $asset->path();
 
@@ -65,13 +71,32 @@ class PublishCommand extends Command
         }
 
         if ($content) {
-            $outputPath = public_path($service->outputPath());
+            $outputPath = public_path($assetService->outputPath());
             $this->components->task("Writing file [$outputPath]", function () use ($filesystem, $outputPath, $content) {
                 $filesystem->ensureDirectoryExists(dirname($outputPath));
                 $filesystem->put($outputPath, $content);
             });
             $this->line('');
+
+            $manifestService->push($assetService->outputPath(), $content);
         }
+    }
+
+    private function createManifestFile(
+        Filesystem $filesystem,
+        ManifestBuilderService $service
+    ): void {
+        if (! $service->enabled()) {
+            return;
+        }
+
+        $content = $service->json();
+        $outputPath = public_path($service->manifestPath());
+
+        $this->components->task("Writing file [$outputPath]", function () use ($filesystem, $outputPath, $content) {
+            $filesystem->ensureDirectoryExists(dirname($outputPath));
+            $filesystem->put($outputPath, $content);
+        });
     }
 
     private function bootTools(): void

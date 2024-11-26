@@ -71,12 +71,33 @@ it('finds and bundles registered scripts and styles and excludes configured asse
 
     assertFileContent(public_path('/vendor/nova-tools/app.js'));
     assertFileContent(public_path('/vendor/nova-tools/app.css'));
+    expect(public_path('/vendor/nova-tools/manifest.json'))->not->toBeReadableFile();
+
+    Http::assertSentCount(0);
+});
+
+it('finds and bundles registered scripts and styles generates manifest file', function () {
+    expect(public_path())->toBe('tests'.DIRECTORY_SEPARATOR.'fixtures'.DIRECTORY_SEPARATOR.'public');
+
+    Config::set('nova-package-bundler-command.version.enabled', true);
+
+    artisan('nova:tools:publish')
+        ->assertSuccessful()
+        ->execute();
+
+    assertFileContent(public_path('/vendor/nova-tools/app.js'));
+    assertFileContent(public_path('/vendor/nova-tools/app.css'));
+    assertFileContent(public_path('/vendor/nova-tools/manifest.json'));
     Http::assertSentCount(0);
 });
 
 afterEach(function () {
     Nova::$scripts = [];
     Nova::$styles = [];
+
+    @unlink(public_path('/vendor/nova-tools/app.js'));
+    @unlink(public_path('/vendor/nova-tools/app.css'));
+    @unlink(public_path('/vendor/nova-tools/manifest.json'));
 });
 
 function assertFileContent(string $path)
