@@ -2,6 +2,14 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.4.1 - 2024-12-16
+
+### What's Changed
+
+* Hash content not path when versioning by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/34
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.4.0...1.4.1
+
 ## 1.4.0 - 2024-11-26
 
 ### What's Changed
