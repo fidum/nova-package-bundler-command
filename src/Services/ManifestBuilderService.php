@@ -15,7 +15,7 @@ class ManifestBuilderService implements ManifestWriterServiceContract
 
     public function push(string $path, string $content): void
     {
-        $id = md5($path);
+        $id = md5($content);
 
         $this->assets[$path] = $path.'?id='.$id;
     }
