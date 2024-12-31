@@ -2,6 +2,14 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.5.0 - 2024-12-31
+
+### What's Changed?
+
+* Add Nova 5.x support by @dmason30
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.4.1...1.5.0
+
 ## 1.4.1 - 2024-12-16
 
 ### What's Changed
