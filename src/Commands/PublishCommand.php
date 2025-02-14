@@ -10,6 +10,7 @@ use Fidum\NovaPackageBundler\Contracts\Services\ManifestBuilderService;
 use Fidum\NovaPackageBundler\Contracts\Services\ScriptAssetService;
 use Fidum\NovaPackageBundler\Contracts\Services\StyleAssetService;
 use Illuminate\Console\Command;
+use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -31,7 +32,16 @@ class PublishCommand extends Command
         StyleAssetService $styleAssetService,
         ManifestBuilderService $manifestService,
     ): int {
-        ServingNova::dispatch(new Request);
+        $reflection = new \ReflectionMethod(ServingNova::class, '__construct');
+
+        if($reflection->getNumberOfParameters() === 1){
+            ServingNova::dispatch(new Request);
+        } else {
+            /** @var \Illuminate\Contracts\Foundation\Application $app */
+            $app = Container::getInstance();
+
+            ServingNova::dispatch($app, new Request);
+        }
 
         $this->bootTools();
         $this->process($filesystem, $scriptAssetService, $manifestService);
