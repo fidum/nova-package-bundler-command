@@ -2,6 +2,21 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.6.0 - 2025-02-14
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/fidum/nova-package-bundler-command/pull/35
+* Run tests on PHP 8.4 by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/36
+* Bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/fidum/nova-package-bundler-command/pull/37
+* fix Nova 5.2.0 issue by @kichetof in https://github.com/fidum/nova-package-bundler-command/pull/39
+
+### New Contributors
+
+* @kichetof made their first contribution in https://github.com/fidum/nova-package-bundler-command/pull/39
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.5.0...1.6.0
+
 ## 1.5.0 - 2024-12-31
 
 ### What's Changed?
