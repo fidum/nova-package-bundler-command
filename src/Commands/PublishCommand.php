@@ -34,7 +34,7 @@ class PublishCommand extends Command
     ): int {
         $reflection = new \ReflectionMethod(ServingNova::class, '__construct');
 
-        if($reflection->getNumberOfParameters() === 1){
+        if ($reflection->getNumberOfParameters() === 1) {
             ServingNova::dispatch(new Request);
         } else {
             /** @var \Illuminate\Contracts\Foundation\Application $app */
