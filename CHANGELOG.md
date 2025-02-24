@@ -2,6 +2,15 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.7.0 - 2025-02-24
+
+### What's Changed
+
+* Add Laravel 12.x Support by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/41
+* Use correct output path when writing files by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/42
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.6.0...1.7.0
+
 ## 1.6.0 - 2025-02-14
 
 ### What's Changed
