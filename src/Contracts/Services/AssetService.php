@@ -12,5 +12,7 @@ interface AssetService
 
     public function excluded(): AssetCollection;
 
-    public function outputPath(): string;
+    public function getLocalOutputPath(): string;
+
+    public function getVersionedOutputPath(): string;
 }

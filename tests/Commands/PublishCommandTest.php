@@ -1,5 +1,6 @@
 <?php
 
+use Fidum\NovaPackageBundler\Contracts\Services\ManifestReaderService as ManifestReaderServiceContract;
 use Fidum\NovaPackageBundler\Tests\Support\TestTool;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Config;
@@ -88,6 +89,20 @@ it('finds and bundles registered scripts and styles generates manifest file', fu
     assertFileContent(public_path('/vendor/nova-tools/app.js'));
     assertFileContent(public_path('/vendor/nova-tools/app.css'));
     assertFileContent(public_path('/vendor/nova-tools/manifest.json'));
+
+    Http::assertSentCount(0);
+
+    // Ensure the manifest file generated correctly when an existing manifest file is present.
+    $this->app->forgetInstance(ManifestReaderServiceContract::class);
+
+    artisan('nova:tools:publish')
+        ->assertSuccessful()
+        ->execute();
+
+    assertFileContent(public_path('/vendor/nova-tools/app.js'));
+    assertFileContent(public_path('/vendor/nova-tools/app.css'));
+    assertFileContent(public_path('/vendor/nova-tools/manifest.json'));
+
     Http::assertSentCount(0);
 });
 

@@ -81,14 +81,15 @@ class PublishCommand extends Command
         }
 
         if ($content) {
-            $outputPath = public_path($assetService->outputPath());
-            $this->components->task("Writing file [$outputPath]", function () use ($filesystem, $outputPath, $content) {
-                $filesystem->ensureDirectoryExists(dirname($outputPath));
-                $filesystem->put($outputPath, $content);
+            $outputPath = $assetService->getLocalOutputPath();
+            $outputPublicPath = public_path($outputPath);
+            $this->components->task("Writing file [$outputPublicPath]", function () use ($filesystem, $outputPublicPath, $content) {
+                $filesystem->ensureDirectoryExists(dirname($outputPublicPath));
+                $filesystem->put($outputPublicPath, $content);
             });
             $this->line('');
 
-            $manifestService->push($assetService->outputPath(), $content);
+            $manifestService->push($outputPath, $content);
         }
     }
 
