@@ -20,8 +20,8 @@ class OverrideNovaPackagesMiddleware
         Nova::$scripts = $this->scriptAssetService->excluded()->toArray();
         Nova::$styles = $this->styleAssetService->excluded()->toArray();
 
-        Nova::remoteScript(asset($this->scriptAssetService->outputPath()));
-        Nova::remoteStyle(asset($this->styleAssetService->outputPath()));
+        Nova::remoteScript(asset($this->scriptAssetService->getVersionedOutputPath()));
+        Nova::remoteStyle(asset($this->styleAssetService->getVersionedOutputPath()));
 
         return $next($request);
     }

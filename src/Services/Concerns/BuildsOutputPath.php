@@ -4,8 +4,15 @@ namespace Fidum\NovaPackageBundler\Services\Concerns;
 
 trait BuildsOutputPath
 {
-    public function outputPath(): string
+    public function getLocalOutputPath(): string
     {
-        return $this->manifestReaderService->getPath($this->outputPath);
+        return $this->outputPath;
+    }
+
+    public function getVersionedOutputPath(): string
+    {
+        $path = $this->getLocalOutputPath();
+
+        return $this->manifestReaderService->getPath($path);
     }
 }
