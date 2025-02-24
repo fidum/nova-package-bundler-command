@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: '#^Event class Laravel\\Nova\\Events\\ServingNova constructor invoked with 2 parameters in Laravel\\Nova\\Events\\ServingNova\:\:dispatch\(\), 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: src/Commands/PublishCommand.php
