@@ -17,6 +17,9 @@ jobs:
         laravel: [11.*, 12.*]
         nova: [4.33.1]
         stability: [prefer-lowest, prefer-stable]
+        exclude:
+          - laravel: 12.*
+            nova: 4.33.1
         include:
           - laravel: 11.*
             testbench: 9.*
