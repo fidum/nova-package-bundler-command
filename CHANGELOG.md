@@ -2,6 +2,14 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.8.0 - 2025-03-06
+
+### What's Changed
+
+* Drop Laravel 10.x Support by @dmason30 in https://github.com/fidum/nova-package-bundler-command/pull/43
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.7.0...1.8.0
+
 ## 1.7.0 - 2025-02-24
 
 ### What's Changed
