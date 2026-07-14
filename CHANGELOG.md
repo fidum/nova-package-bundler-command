@@ -2,6 +2,14 @@
 
 All notable changes to `nova-package-bundler-command` will be documented in this file.
 
+## 1.8.1 - 2026-07-14
+
+### What's Changed
+
+* Add support for Laravel 13 by @kichetof in https://github.com/fidum/nova-package-bundler-command/pull/54
+
+**Full Changelog**: https://github.com/fidum/nova-package-bundler-command/compare/1.8.0...1.8.1
+
 ## 1.8.0 - 2025-03-06
 
 ### What's Changed
